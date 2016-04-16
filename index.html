@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Recursion visualizer</title>
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+
+  <style>
+  .recursion-step {
+    border: 1px solid black;
+    margin: 10px 0px;
+    transition: all 1s;
+  }
+
+  .func-call {
+    border: 1px solid black;
+  }
+
+  .before-expand {
+    position: absolute;
+  }
+
+  .return-active {
+    border: 1px solid red;
+    background-color: #FFF;
+  }
+
+  #init-input {
+    width: 20px;
+  }
+  </style>
+</head>
+<body>
+
+<script id="block-template" type="x-tmpl-mustache">
+
+<pre class="recursion-step" id="{{blockId}}" data-n="{{n}}" data-return-val="{{returnVal}}">
+factorial({{n}}) {
+  if ({{n}} === 0) { //{{condition}}
+    <span id="{{return1Id}}">return 1;</span>
+  }
+  <span id="{{return2Id}}">return {{n}} * <span class="func-call" id="{{callId}}" data-previd="{{prevId}}" data-n="{{n}}">factorial({{n}} - 1)</span>;</span>
+}
+</pre>
+
+</script>
+
+<pre id="start-block">
+factorial(n) {
+  if (n === 0) {
+    return 1;
+  }
+  return n * factorial(n - 1);
+}
+</pre>
+
+<form id="init">
+  factorial(<input type="number" value="5" id="input-value">);
+  <input type="submit" value="start">
+</form>
+
+<script src="main.js"></script>
+
+</body>
+</html>
